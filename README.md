@@ -1,58 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pustaka — Manajemen Koleksi Buku
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi Laravel untuk mencatat koleksi dan stok buku perpustakaan sebagai data pendukung layanan peminjaman. Aplikasi mengikuti alur **Route → Controller → Blade** dan menyimpan data koleksi pada session, tanpa memerlukan database.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Menampilkan daftar buku beserta kode, nama, kategori, lokasi, jumlah, kondisi, dan aksi.
+- Menambah, melihat detail, mengubah, dan menghapus data buku.
+- Membuat kode buku secara otomatis.
+- Memvalidasi input dan menampilkan pesan status serta kesalahan form.
+- Meminta konfirmasi sebelum menghapus data.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Teknologi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel 13
+- PHP
+- Session driver `file`
+- Blade dan CSS
 
-## Learning Laravel
+## Persyaratan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP **8.4.1 atau lebih baru** untuk memasang paket yang saat ini terkunci di `composer.lock`.
+- Composer
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> Catatan: nilai PHP pada `composer.json` saat ini masih `^8.3`, tetapi beberapa paket dalam `composer.lock` meminta PHP 8.4.1+. Samakan versi PHP lingkungan dengan kebutuhan lock sebelum menjalankan `composer install`.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Menjalankan aplikasi
 
-## Agentic Development
+1. Pasang dependency:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+   ~~~bash
+   composer install
+   ~~~
 
-```bash
-composer require laravel/boost --dev
+2. Salin `.env.example` menjadi `.env` jika file `.env` belum tersedia.
+3. Buat application key:
 
-php artisan boost:install
-```
+   ~~~bash
+   php artisan key:generate
+   ~~~
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+4. Pastikan konfigurasi session memakai driver file:
 
-## Contributing
+   ~~~dotenv
+   SESSION_DRIVER=file
+   ~~~
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Jalankan server lokal:
 
-## Code of Conduct
+   ~~~bash
+   php artisan serve
+   ~~~
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Buka alamat lokal yang ditampilkan Artisan, biasanya `http://127.0.0.1:8000`.
 
-## Security Vulnerabilities
+CSS disajikan langsung dari `public/css/app.css`; proses build frontend tidak diperlukan. Pastikan direktori `storage/framework/sessions` dapat ditulisi oleh PHP.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Catatan penyimpanan
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Data disimpan pada session browser yang sedang digunakan. Data tidak dibagikan ke browser lain dan akan mengikuti masa berlaku session Laravel. Aplikasi ini berfokus pada CRUD master koleksi dan stok buku; transaksi peminjaman anggota belum dicatat sebagai data terpisah.
