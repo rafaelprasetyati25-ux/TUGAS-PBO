@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: pustaka-buku-rafael
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /buku
+    autoDeploy: true
+    envVars:
+      - key: APP_NAME
+        value: Pustaka Buku
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://pustaka-buku-rafael.onrender.com
+      - key: SESSION_DRIVER
+        value: file
+      - key: SESSION_LIFETIME
+        value: "120"
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: info
